@@ -1,0 +1,30 @@
+enum SessionState {
+  Started
+  Completed
+}
+
+type GameSession {
+  id: ID!
+  memoTest: MemoTest! @belongsTo
+  retries: Int!
+  pairs: Int!
+  state: SessionState!
+  score: Int!
+  created_at: DateTime!
+  updated_at: DateTime!
+}
+
+input CreateGameSessionInput {
+	memoTest: ConnectMemoTestBelongsTo!
+	pairs: Int!
+}
+
+input ConnectMemoTestBelongsTo {
+	connect: ID
+}
+
+input UpdateGameSessionInput {
+	id: ID!
+	retries: Int!
+}
+

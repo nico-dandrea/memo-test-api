@@ -1,0 +1,25 @@
+"A datetime string with format `Y-m-d H:i:s`, e.g. `2018-05-23 13:43:32`."
+scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\DateTime")
+
+#import memotest.graphql
+#import gamesession.graphql
+
+type Suscription {
+  gameSessionCompleted(gameSession: ID): GameSession
+}
+
+type Mutation {
+  createMemoTest(input: CreateMemoTestInput! @spread): MemoTest @create
+  updateMemoTest(input: UpdateMemoTestInput! @spread): MemoTest @update
+  deleteMemoTest(id: ID! @whereKey): MemoTest @delete
+  createGameSession(input: CreateGameSessionInput! @spread): GameSession @create
+  updateGameSession(input: UpdateGameSessionInput! @spread): GameSession @update
+  endGameSession(id: ID! @whereKey): GameSession @update
+    @broadcast(subscription: "gameSessionCompleted")
+}
+
+type Query {
+  memoTests: [MemoTest!]! @all
+  memoTest(id: ID! @eq): MemoTest @find
+  gameSession(id: ID! @eq): GameSession @find
+}
