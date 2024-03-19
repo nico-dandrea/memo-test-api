@@ -5,6 +5,7 @@ enum SessionState {
 
 type GameSession {
   id: ID!
+  # I used camelCase because even using @belongsTo(relation: "memoTest") won't let me create
   memoTest: MemoTest! @belongsTo
   retries: Int!
   pairs: Int!
