@@ -9,9 +9,12 @@ type Mutation {
   updateMemoTest(input: UpdateMemoTestInput! @spread): MemoTest @update
   deleteMemoTest(id: ID! @whereKey): MemoTest @delete
   createGameSession(input: CreateGameSessionInput! @spread): GameSession @create
-  updateGameSession(input: UpdateGameSessionInput! @spread): GameSession @update
-  endGameSession(id: ID!): GameSession
+  # IsGameSessionActiveRule already validates for existing IDs
+  # Also we dont use the directive whereKey because it conflicts with the mutations resolvers
+  incrementGameSessionRetries(id: ID! @rules(apply: [ "App\\Rules\\IsGameSessionActiveRule"])): GameSession
+  endGameSession(id: ID! @rules(apply: [ "App\\Rules\\IsGameSessionActiveRule"])): GameSession
 }
+
 
 type Query {
   memoTests: [MemoTest!]! @all

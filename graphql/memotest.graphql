@@ -1,4 +1,4 @@
-"DEFINITION"
+#DEFINITION
 
 type MemoTest {
   id: ID!
@@ -17,10 +17,10 @@ type MemoTestImage {
   updated_at: DateTime!
 }
 
-"CREATE"
+#CREATE
 
 input CreateMemoTestInput {
-  name: String!
+  name: String! @rules(apply: [ "required", "string", "unique:memo_tests,name"])
   images: UpdateImagesHasMany!
 }
 
@@ -28,39 +28,29 @@ input CreateImageHasMany {
   create: [CreateImageInput!]!
 }
 
-input CreateImageInput {
-  image_url: String!
+input CreateImageInput @validator {
+  #We use 'ends_with' because for some reasone extensions doesn't work properly
+  image_url: String! @rules(apply: [ "required", "ends_with:.jpg,.jpeg,.png", "unique:memo_test_images,image_url"])
 }
 
-"UPDATE"
+# UPDATE
 
 input UpdateMemoTestInput {
-  id: ID!
-  name: String
+  id: ID! @rules(apply: [ "required", "exists:memo_test_images,id"])
+  name: String @rules(apply: [ "sometimes", "string", "unique:memo_tests,name"])
   images: UpdateImagesHasMany
 }
 
 input UpdateImagesHasMany {
-  create: [CreateImageInput!]
+  create: [CreateImageInput!] 
   update: [UpdateImageInput!]
-  upsert: [UpsertImageInput!]
-  delete: [ID!]
-  connect: [ID!]
-  disconnect: [ID!]  
+  upsert: [UpdateImageInput!]
+  delete: [ID!] @rules(apply: [ "exists:memo_test_images,id"])
+  connect: [ID!] @rules(apply: [ "exists:memo_test_images,id"])
+  disconnect: [ID!] @rules(apply: [ "exists:memo_test_images,id"])
 }
 
-input UpdateImageInput {
-  id: ID!
-  image_url: String
-}
-
-input UpsertImageInput {
-  id: ID!
-  image_url: String
-}
-
-"DELETE"
-
-input DeleteImageInput {
-  id: ID!
+input UpdateImageInput @validator {
+  id: ID! @rules(apply: [ "required", "exists:memo_test_images,id"])
+  image_url: String! @rules(apply: [ "required", "ends_with:.jpg,.jpeg,.png", "unique:memo_test_images,image_url"])
 }

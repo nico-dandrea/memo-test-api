@@ -6,19 +6,23 @@ use App\Models\GameSession;
 
 final class EndGameSession
 {
-    /** @param  array{id: int}  $args */
-    public function __invoke(mixed $_, array $args): GameSession|array
+    /**
+     * Sets the state of the GameSession to Completed and calculates the score
+     * 
+     * @param mixed $root
+     * @param array{id: int} $args 
+     * */
+    public function __invoke(mixed $root, array $args): GameSession
     {
-        $gameSession = GameSession::find($args['id']);
+        $gameSession = GameSession::findOrFail($args['id']);
+        $score = 0;
 
-        if ($gameSession->state === 'Completed') {
-            return [
-                'error' => 'Session already completed'
-            ];
+        if ($gameSession->retries !== 0) {
+            $score = GameSession::SCORE_MULTIPLIER * ($gameSession->pairs * $gameSession->retries);
         }
 
         $gameSession->update([
-            'score' => GameSession::SCORE_MULTIPLIER * ($gameSession->pairs * $gameSession->retries),
+            'score' => $score,
             'state' => 'Completed'
         ]);
 

@@ -16,15 +16,10 @@ type GameSession {
 
 input CreateGameSessionInput {
 	memoTest: ConnectMemoTestBelongsTo!
-	pairs: Int!
+	pairs: Int! @rules(apply: [ "required", "integer", "min:4", "max:15"])
 }
 
 input ConnectMemoTestBelongsTo {
-	connect: ID
-}
-
-input UpdateGameSessionInput {
-	id: ID!
-	retries: Int!
+	connect: ID! @rules(apply: [ "required", "exists:memo_tests,id"])
 }
 
