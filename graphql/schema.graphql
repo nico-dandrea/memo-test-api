@@ -4,18 +4,13 @@ scalar DateTime @scalar(class: "Nuwave\\Lighthouse\\Schema\\Types\\Scalars\\Date
 #import memotest.graphql
 #import gamesession.graphql
 
-type Suscription {
-  gameSessionCompleted(gameSession: ID): GameSession
-}
-
 type Mutation {
   createMemoTest(input: CreateMemoTestInput! @spread): MemoTest @create
   updateMemoTest(input: UpdateMemoTestInput! @spread): MemoTest @update
   deleteMemoTest(id: ID! @whereKey): MemoTest @delete
   createGameSession(input: CreateGameSessionInput! @spread): GameSession @create
   updateGameSession(input: UpdateGameSessionInput! @spread): GameSession @update
-  endGameSession(id: ID! @whereKey): GameSession @update
-    @broadcast(subscription: "gameSessionCompleted")
+  endGameSession(id: ID!): GameSession
 }
 
 type Query {
