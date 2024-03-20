@@ -5,10 +5,10 @@ enum SessionState {
 
 type GameSession {
   id: ID!
-  # I used camelCase because even using @belongsTo(relation: "memoTest") won't let me create
+  # I used camelCase because even using @belongsTo(relation: "memoTest") throws an exception
   memoTest: MemoTest! @belongsTo
   retries: Int!
-  pairs: Int!
+  number_of_pairs: Int!
   state: SessionState!
   score: Int!
   created_at: DateTime!
@@ -17,7 +17,7 @@ type GameSession {
 
 input CreateGameSessionInput {
 	memoTest: ConnectMemoTestBelongsTo!
-	pairs: Int! @rules(apply: [ "required", "integer", "min:4", "max:15"])
+	number_of_pairs: Int! @rules(apply: [ "required", "integer", "min:4", "max:15"])
 }
 
 input ConnectMemoTestBelongsTo {

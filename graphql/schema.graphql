@@ -15,7 +15,6 @@ type Mutation {
   endGameSession(id: ID! @rules(apply: [ "App\\Rules\\IsGameSessionActiveRule"])): GameSession
 }
 
-
 type Query {
   memoTests: [MemoTest!]! @all
   memoTest(id: ID! @eq): MemoTest @find

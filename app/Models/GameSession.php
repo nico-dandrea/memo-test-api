@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use App\Events\GameSessionEnded;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class GameSession extends Model
 {
@@ -28,6 +28,18 @@ class GameSession extends Model
     public function memoTest(): BelongsTo
     {
         return $this->belongsTo(MemoTest::class);
+    }
+
+    /**
+     * Get the score of the GameSession
+     *
+     * @return Attribute
+     */
+    protected function calculateScore(): Attribute
+    {
+        return Attribute::make(
+            get: fn (mixed $value, array $attributes) => round(self::SCORE_MULTIPLIER * ($attributes['number_of_pairs'] / $attributes['retries'])),
+        );
     }
 
 }

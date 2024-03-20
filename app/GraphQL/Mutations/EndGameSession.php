@@ -18,7 +18,7 @@ final class EndGameSession
         $score = 0;
 
         if ($gameSession->retries !== 0) {
-            $score = GameSession::SCORE_MULTIPLIER * ($gameSession->pairs * $gameSession->retries);
+            $score = $gameSession->calculateScore();
         }
 
         $gameSession->update([

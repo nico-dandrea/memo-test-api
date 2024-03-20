@@ -20,37 +20,32 @@ type MemoTestImage {
 #CREATE
 
 input CreateMemoTestInput {
-  name: String! @rules(apply: [ "required", "string", "unique:memo_tests,name"])
-  images: UpdateImagesHasMany!
-}
-
-input CreateImageHasMany {
-  create: [CreateImageInput!]!
+  name: String! @rules(apply: [ "required", "string", "min:4", "max:100", "unique:memo_tests,name"])
+  images: UpdateImagesHasMany
 }
 
 input CreateImageInput @validator {
   #We use 'ends_with' because for some reasone extensions doesn't work properly
-  image_url: String! @rules(apply: [ "required", "ends_with:.jpg,.jpeg,.png", "unique:memo_test_images,image_url"])
+  image_url: String! @rules(apply: [ "required", "ends_with:.jpg,.jpeg,.png"])
 }
 
 # UPDATE
 
 input UpdateMemoTestInput {
-  id: ID! @rules(apply: [ "required", "exists:memo_test_images,id"])
+  id: ID! @rules(apply: [ "required", "exists:memo_tests,id"])
   name: String @rules(apply: [ "sometimes", "string", "unique:memo_tests,name"])
   images: UpdateImagesHasMany
 }
 
+# As it was similar to this, we didn't create a CreateImagesHasMany input
 input UpdateImagesHasMany {
   create: [CreateImageInput!] 
   update: [UpdateImageInput!]
-  upsert: [UpdateImageInput!]
   delete: [ID!] @rules(apply: [ "exists:memo_test_images,id"])
-  connect: [ID!] @rules(apply: [ "exists:memo_test_images,id"])
-  disconnect: [ID!] @rules(apply: [ "exists:memo_test_images,id"])
+  #TODO: Make memo_test images a many to many
 }
 
 input UpdateImageInput @validator {
   id: ID! @rules(apply: [ "required", "exists:memo_test_images,id"])
-  image_url: String! @rules(apply: [ "required", "ends_with:.jpg,.jpeg,.png", "unique:memo_test_images,image_url"])
+  image_url: String! @rules(apply: [ "required", "ends_with:.jpg,.jpeg,.png"])
 }

@@ -16,9 +16,9 @@ class MemoTest extends Model
      *
      * @var array
      */
-    protected $fillable = [
-        'name',
-    ];
+    protected $fillable = ['name'];
+
+    protected $with = ['images'];
 
     /**
      * Get all of the images for the MemoTest

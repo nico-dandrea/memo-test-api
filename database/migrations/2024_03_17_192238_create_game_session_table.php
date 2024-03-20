@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('game_sessions', function (Blueprint $table) {
             $table->id();
             $table->foreignId('memo_test_id')->constrained();
-            $table->smallInteger('retries')->default(0);
-            $table->tinyInteger('pairs');
+            $table->unsignedSmallInteger('retries')->default(0);
+            $table->unsignedTinyInteger('number_of_pairs');
             $table->enum('state', ['Started', 'Completed'])->default('Started');
-            $table->integer('score')->default(0);
+            $table->unsignedInteger('score')->default(0);
             $table->timestamps();
         });
     }
