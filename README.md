@@ -1,4 +1,4 @@
-# Laravel Application
+# MemoTest API
 
 This repository contains a Laravel application that uses Docker and Docker Compose for deployment.
 
@@ -32,9 +32,12 @@ Now you can run `artisan` commands with Sail!
 sail artisan list
 sail artisan help
 sail artisan make:model
-sail artisan test
 ```
-etc
+Etc.
+
+## Running Tests
+
+You can run the tests with `sail artisan test`
 
 ## Database Migrations
 
