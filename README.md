@@ -48,3 +48,6 @@ To set up the database, run the migrations along with seeders:
 ```
 
 Make sure to review the database configuration in the `.env` file before running the migrations.
+
+## Front End APP
+For the Front End refer to the following repository [MemoTestAPP](https://github.com/nico-dandrea/memo-test-app)
