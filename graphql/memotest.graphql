@@ -5,6 +5,7 @@ type MemoTest {
   name: String!
   images: [MemoTestImage!]! @hasMany
   sessions: [GameSession!]! @hasMany
+  maxScore: GameSession @hasOne
   created_at: DateTime!
   updated_at: DateTime!
 }

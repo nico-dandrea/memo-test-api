@@ -38,7 +38,9 @@ class GameSession extends Model
     protected function calculateScore(): Attribute
     {
         return Attribute::make(
-            get: fn (mixed $value, array $attributes) => round(self::SCORE_MULTIPLIER * ($attributes['number_of_pairs'] / $attributes['retries'])),
+            get: fn(mixed $value, array $attributes) => $attributes['retries'] > 0 
+            ? round(self::SCORE_MULTIPLIER * ($attributes['number_of_pairs'] / $attributes['retries'])) 
+            : 0,
         );
     }
 

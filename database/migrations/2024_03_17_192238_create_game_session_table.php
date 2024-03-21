@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('memo_test_id')->constrained();
             $table->unsignedSmallInteger('retries')->default(0);
-            $table->unsignedTinyInteger('number_of_pairs');
+            $table->unsignedTinyInteger('number_of_pairs')->default(0);
             $table->enum('state', ['Started', 'Completed'])->default('Started');
             $table->unsignedInteger('score')->default(0);
             $table->timestamps();

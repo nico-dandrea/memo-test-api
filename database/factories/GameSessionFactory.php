@@ -18,9 +18,9 @@ class GameSessionFactory extends Factory
     public function definition(): array
     {
         return [
-            'retries' => fake()->numberBetween(1, 65535),
+            'retries' => fake()->numberBetween(4, 64),
             'number_of_pairs' => fake()->numberBetween(4, 15),
-            'state' => fake()->randomElement(['Started', 'Completed']),
+            'state' => 'Started',
             'score' => 0,
         ];
     }

@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Database\Seeders\GameSessionSeeder;
+use Database\Seeders\MemoTestSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,10 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i < 5; $i++) { 
-            \App\Models\MemoTest::factory()->create([
-                'name' => "Memo Test $i",
-            ]);
-        }
+        $this->call([
+            MemoTestSeeder::class,
+            GameSessionSeeder::class,
+        ]);
     }
 }

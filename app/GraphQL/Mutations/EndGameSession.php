@@ -15,14 +15,9 @@ final class EndGameSession
     public function __invoke(mixed $root, array $args): GameSession
     {
         $gameSession = GameSession::findOrFail($args['id']);
-        $score = 0;
-
-        if ($gameSession->retries !== 0) {
-            $score = $gameSession->calculateScore();
-        }
 
         $gameSession->update([
-            'score' => $score,
+            'score' => $gameSession->calculateScore,
             'state' => 'Completed'
         ]);
 
