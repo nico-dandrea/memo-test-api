@@ -34,3 +34,7 @@ To set up the database, run the migrations along with seeders:
 ```
 
 Make sure to review the database configuration in the `.env` file before running the migrations.
+
+I added a Postman Collection If needed for testing the GraphQL endpoints
+
+Have a nice day!

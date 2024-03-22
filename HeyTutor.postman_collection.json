@@ -1,0 +1,258 @@
+{
+	"info": {
+		"_postman_id": "a3250da0-6ee9-4d46-bf56-115665e8c21e",
+		"name": "HeyTutor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "15288248"
+	},
+	"item": [
+		{
+			"name": "MemoTest",
+			"item": [
+				{
+					"name": "Queries",
+					"item": [
+						{
+							"name": "FindMemoTestById",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    memoTest(id: 1){\r\n        name\r\n        images {\r\n            image_url\r\n        }\r\n        maxScore{\r\n            id\r\n            retries\r\n            score\r\n        }\r\n    }\r\n}",
+										"variables": "{\r\n    \"id\": 8\r\n}"
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "FindAllMemoTests",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n\t\tmemoTests {\r\n\t\t\tid\r\n\t\t\tname\r\n\t\t\timages {\r\n\t\t\t\tid\r\n\t\t\t\timage_url\r\n\t\t\t}\r\n\t\t\tmaxScore {\r\n\t\t\t\tid\r\n\t\t\t\tretries\r\n\t\t\t\tscore\r\n\t\t\t}\r\n\t\t}\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mutations",
+					"item": [
+						{
+							"name": "DeleteMemoTest",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\r\n  deleteMemoTest(\r\n    id: 1\r\n  ) {\r\n    id\r\n    name\r\n  }\r\n}",
+										"variables": "{\r\n    \"id\": 8\r\n}"
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CreateMemoTest",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\r\n  createMemoTest(\r\n    input: {\r\n        name: \"Memo Test Test2\"\r\n        images: {\r\n            create: [\r\n                { image_url: \"/images/memo-test-test11.png\"}\r\n                { image_url: \"/images/memo-test-test21.jpg\"}\r\n            ]\r\n        }\r\n    }\r\n  ) {\r\n    id\r\n    images {\r\n        id\r\n    }\r\n  }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "UpdateMemoTest",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\r\n  updateMemoTest(\r\n    input: {\r\n        id: 2\r\n        images: {\r\n            create: [\r\n                { image_url: \"/images/memo-test-test3.jpeg\"}\r\n                { image_url: \"/images/memo-test-test4.jpg\"}\r\n            ]\r\n            update: [{ id: 3, image_url: \"/images/memo-test-test5.jpg\"}]\r\n            delete: [3]\r\n            connect: [4]\r\n        }\r\n    }\r\n  ) {\r\n    id\r\n    images {\r\n        id\r\n    }\r\n  }\r\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GameSession",
+			"item": [
+				{
+					"name": "Queries",
+					"item": [
+						{
+							"name": "FindGameSessionById",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "{\r\n    gameSession(id: 37){\r\n        id\r\n        memoTest{\r\n            id\r\n        }\r\n        retries\r\n        number_of_pairs\r\n        state\r\n        score\r\n    }\r\n}",
+										"variables": "{\r\n    \"id\": 8\r\n}"
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Mutations",
+					"item": [
+						{
+							"name": "CreateGameSession",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\r\n  createGameSession(\r\n    input: \r\n        { \r\n            memoTest: { connect: 1 },\r\n            number_of_pairs: 8 \r\n        }\r\n    ) {\r\n    id\r\n    memoTest {\r\n        id\r\n    }\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "IncrementGameSessionRetries",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\r\n  incrementGameSessionRetries(\r\n        id : 1\r\n    ) {\r\n    id\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "EndGameSession",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\r\n  endGameSession(\r\n        id : \"asd\"\r\n    ) {\r\n    id\r\n  }\r\n}\r\n",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}",
+									"host": [
+										"{{base_url}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "localhost/graphql",
+			"type": "string"
+		}
+	]
+}
